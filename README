@@ -2,19 +2,39 @@ This source contains:
  - The Kaltura client library (kaltura_client_base.rb)
  - Auto generated core APIs (kaltura_client.rb)
  - Auto generated plugin APIs (kaltura_plugins/*.rb)
- - Ruby library test code and data files (test/*)
- 
-== DEPENDENCIES ==
 
-RAKE			(http://rake.rubyforge.org/)
-Shoulda			(gem install shoulda)
-Rest_client		(gem install rest-client)
+KalturaApi Gem
+===============
 
-== RUNNING THE CLIENT LIBRARY TESTS ==
+A ruby gem to interact with api of kaltura video hosting platform.
 
-IMPORTANT: never run the tests of the client library against a production account - 
-	these tests perform modifications to account profiles.
+
+Usage Examples
+--------------
+
+Install
+
+    gem install kaltura_api
+
+Initialize the API with a key
+
+    require 'kaltura_api'
+
+Starting a api session
 	
-Update kaltura.yml with your account information
-Change directory to kaltura/ruby
-Execute the command: rake test
+	config = KalturaApi::KalturaConfiguration.new(your_partner_id)
+	client = KalturaApi::KalturaClient.new(config)
+	session = client.session_service.start(your_admin_secret,'',KalturaApi::KalturaSessionType::ADMIN)
+	client.ks = session
+
+Listing all the videos from your the account
+	
+	client.base_entry_service.list
+
+Get the informations of the particular media
+	
+	client.base_entry_service.get(entry_id)
+
+Get the count of media items in the account
+	
+	client.base_entry_service.list.total_count
