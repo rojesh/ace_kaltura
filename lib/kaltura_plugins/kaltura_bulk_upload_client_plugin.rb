@@ -27,7 +27,7 @@
 # ===================================================================================================
 require 'kaltura_client.rb'
 
-module Kaltura
+module KalturaApi
 
 
 	# Bulk upload service is used to upload & manage bulk uploads

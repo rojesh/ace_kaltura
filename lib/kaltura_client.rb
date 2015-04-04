@@ -27,7 +27,7 @@
 # ===================================================================================================
 require 'kaltura_client_base.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaAppearInListType
 		PARTNER_ONLY = 1

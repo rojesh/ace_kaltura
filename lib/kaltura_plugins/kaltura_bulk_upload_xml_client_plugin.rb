@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_bulk_upload_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	# Represents the Bulk upload job data for xml bulk upload
 	#  

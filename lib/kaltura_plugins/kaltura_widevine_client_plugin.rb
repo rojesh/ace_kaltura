@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_drm_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaWidevineRepositorySyncMode
 		MODIFY = 0

@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_event_notification_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaEmailNotificationTemplatePriority
 		HIGH = 1

@@ -33,26 +33,26 @@ class MetadataProfileServiceTest < Test::Unit::TestCase
   should "creates a metadata_profile and get the metadata_profile list" do
     
     # cleaning up the list
-    metadata_profile_filter = Kaltura::KalturaMetadataProfileFilter.new
-    filter_pager = Kaltura::KalturaFilterPager.new
+    metadata_profile_filter = KalturaApi::KalturaMetadataProfileFilter.new
+    filter_pager = KalturaApi::KalturaFilterPager.new
     metadata_profile_list = @client.metadata_profile_service.list(metadata_profile_filter, filter_pager)
     metadata_profile_list.objects.each do |obj|
       @client.metadata_profile_service.delete(obj.id) rescue nil
     end  if metadata_profile_list.objects
       
      # creates a metadata_profile  
-     metadata_profile = Kaltura::KalturaMetadataProfile.new
+     metadata_profile = KalturaApi::KalturaMetadataProfile.new
      metadata_profile.name = "test profile"
-     metadata_profile.metadata_object_type = Kaltura::KalturaMetadataObjectType::ENTRY 
-     metadata_profile.create_mode = Kaltura::KalturaMetadataProfileCreateMode::API 
+     metadata_profile.metadata_object_type = KalturaApi::KalturaMetadataObjectType::ENTRY 
+     metadata_profile.create_mode = KalturaApi::KalturaMetadataProfileCreateMode::API 
      
      created_metadata_profile = @client.metadata_profile_service.add(metadata_profile, "<xsd:schema></xsd:schema>", "viewsData") 
 
      assert_not_nil created_metadata_profile.id
 
      # list the metadata_profiles 
-     metadata_profile_filter = Kaltura::KalturaMetadataProfileFilter.new
-     filter_pager = Kaltura::KalturaFilterPager.new      
+     metadata_profile_filter = KalturaApi::KalturaMetadataProfileFilter.new
+     filter_pager = KalturaApi::KalturaFilterPager.new      
      
      metadata_profile_list = @client.metadata_profile_service.list(metadata_profile_filter, filter_pager)    
      

@@ -29,7 +29,7 @@ require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_bulk_upload_xml_client_plugin.rb'
 require File.dirname(__FILE__) + '/kaltura_drop_folder_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaDropFolderXmlBulkUploadFileHandlerConfig < KalturaDropFolderFileHandlerConfig
 

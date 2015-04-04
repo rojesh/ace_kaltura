@@ -33,7 +33,7 @@ class DataServiceTest < Test::Unit::TestCase
     # this test creates a data entry and calls serve action to get a file url.
     should "get the file url with data content" do
     
-      data_entry = Kaltura::KalturaDataEntry.new
+      data_entry = KalturaApi::KalturaDataEntry.new
       data_entry.name = "kaltura_test"
       data_entry.data_content = @content
       
@@ -51,7 +51,7 @@ class DataServiceTest < Test::Unit::TestCase
       # this test creates a data entry, calls serve action to get file url and test file content.
       should "get the file url with data content when the forceProxy is 0" do
 
-        data_entry = Kaltura::KalturaDataEntry.new
+        data_entry = KalturaApi::KalturaDataEntry.new
         data_entry.name = "kaltura_test"
         data_entry.data_content = @content
 

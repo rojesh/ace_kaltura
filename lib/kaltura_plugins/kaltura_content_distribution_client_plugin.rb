@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_metadata_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaDistributionAction
 		SUBMIT = 1

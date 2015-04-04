@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_cue_point_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaAnnotationOrderBy
 		CREATED_AT_ASC = "+createdAt"

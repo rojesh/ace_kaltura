@@ -33,9 +33,9 @@ class CuePointServiceTest < Test::Unit::TestCase
   should "creates a cue_point and get the cue_point list" do
     
     # creates a media_entry 
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test1"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -44,8 +44,8 @@ class CuePointServiceTest < Test::Unit::TestCase
     assert_not_nil created_entry.id
      
     # creates a cue_point  
-    cue_point = Kaltura::KalturaAnnotation.new
-    cue_point.cue_point_type = Kaltura::KalturaCuePointType::ANNOTATION 
+    cue_point = KalturaApi::KalturaAnnotation.new
+    cue_point.cue_point_type = KalturaApi::KalturaCuePointType::ANNOTATION 
     cue_point.entry_id = created_entry.id
     
     created_cue_point = @client.cue_point_service.add(cue_point) 
@@ -53,9 +53,9 @@ class CuePointServiceTest < Test::Unit::TestCase
     assert_not_nil created_cue_point.id
   
     # list the cuepoints
-    cue_point_filter = Kaltura::KalturaCuePointFilter.new
+    cue_point_filter = KalturaApi::KalturaCuePointFilter.new
     cue_point_filter.entry_id_equal = created_entry.id
-    filter_pager = Kaltura::KalturaFilterPager.new      
+    filter_pager = KalturaApi::KalturaFilterPager.new      
     
     cue_point_list = @client.cue_point_service.list(cue_point_filter, filter_pager)    
     

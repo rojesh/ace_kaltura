@@ -38,7 +38,7 @@ require 'base64'
 require 'date'
 require 'yaml'
 
-module Kaltura
+module KalturaApi
   class KalturaNotImplemented; end
   
 	class KalturaClientBase

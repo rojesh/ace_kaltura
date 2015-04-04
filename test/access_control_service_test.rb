@@ -34,26 +34,26 @@ class AccessControlServiceTest < Test::Unit::TestCase
   should "be able to send empty array to the api and reset the values" do
     
     # cleaning up the list
-    access_control_filter = Kaltura::KalturaAccessControlFilter.new
-    filter_pager = Kaltura::KalturaFilterPager.new
+    access_control_filter = KalturaApi::KalturaAccessControlFilter.new
+    filter_pager = KalturaApi::KalturaFilterPager.new
     access_control_list = @client.access_control_service.list(access_control_filter, filter_pager)
     access_control_list.objects.each do |obj|
       @client.access_control_service.delete(obj.id) rescue nil
     end  if access_control_list.objects
         
-    access_control = Kaltura::KalturaAccessControl.new
+    access_control = KalturaApi::KalturaAccessControl.new
     access_control.name = "kaltura_test"
-    access_control.is_default = Kaltura::KalturaNullableBoolean::FALSE_VALUE
+    access_control.is_default = KalturaApi::KalturaNullableBoolean::FALSE_VALUE
     
     access_control.restrictions = []
     
-    restriction1 = Kaltura::KalturaCountryRestriction.new
-    restriction1.country_restriction_type = Kaltura::KalturaCountryRestrictionType::RESTRICT_COUNTRY_LIST
+    restriction1 = KalturaApi::KalturaCountryRestriction.new
+    restriction1.country_restriction_type = KalturaApi::KalturaCountryRestrictionType::RESTRICT_COUNTRY_LIST
     restriction1.country_list = 'UK,LK'
     access_control.restrictions << restriction1
 
-    restriction2 = Kaltura::KalturaSiteRestriction.new
-    restriction2.site_restriction_type = Kaltura::KalturaSiteRestrictionType::RESTRICT_SITE_LIST
+    restriction2 = KalturaApi::KalturaSiteRestriction.new
+    restriction2.site_restriction_type = KalturaApi::KalturaSiteRestrictionType::RESTRICT_SITE_LIST
     restriction2.site_list = 'http://www.kaltura.com'
     access_control.restrictions << restriction2
     
@@ -63,7 +63,7 @@ class AccessControlServiceTest < Test::Unit::TestCase
     assert_equal created_access_control.restrictions.size, 2
     
     # edited access control
-    edited_access_control = Kaltura::KalturaAccessControl.new
+    edited_access_control = KalturaApi::KalturaAccessControl.new
     edited_access_control.name = access_control.name  
     edited_access_control.restrictions = []
     

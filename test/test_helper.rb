@@ -47,12 +47,12 @@ class Test::Unit::TestCase
     administrator_secret = config_file["test"]["administrator_secret"]
     timeout = config_file["test"]["timeout"]
     
-    config = Kaltura::KalturaConfiguration.new(partner_id, service_url)
+    config = KalturaApi::KalturaConfiguration.new(partner_id, service_url)
     config.logger = Logger.new(STDOUT)
     config.timeout = timeout
     
-    @client = Kaltura::KalturaClient.new( config )
-    session = @client.session_service.start( administrator_secret, '', Kaltura::KalturaSessionType::ADMIN )
+    @client = KalturaApi::KalturaClient.new( config )
+    session = @client.session_service.start( administrator_secret, '', KalturaApi::KalturaSessionType::ADMIN )
     @client.ks = session
   end
 

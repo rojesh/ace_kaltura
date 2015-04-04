@@ -25,7 +25,7 @@
 #
 # @ignore
 # ===================================================================================================
-module Kaltura
+module KalturaApi
   require 'kaltura_client.rb'
   Dir[File.dirname(__FILE__) + '/kaltura_plugins/*.rb'].each {|file| require file }
 end

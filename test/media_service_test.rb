@@ -35,9 +35,9 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test uploads a video file to kaltura and creates a media entry using the uploaded file.
   should "upload a video file and create a kaltura entry" do
         
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test1"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -50,9 +50,9 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test uploads a image file to kaltura and creates a media entry using the uploaded file.  
   should "upload a image file and create a kaltura entry" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test2"
-    media_entry.media_type = Kaltura::KalturaMediaType::IMAGE
+    media_entry.media_type = KalturaApi::KalturaMediaType::IMAGE
     video_file = File.open("test/media/test.png")
     
     video_token = @client.media_service.upload(video_file)
@@ -65,23 +65,23 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test uploads a video file to kaltura reading from a url and creates a media entry using the uploaded file.  
   should "upload a flv file from url and create a kaltura entry" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test3"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     
     created_entry3 = @client.media_service.add_from_url(media_entry, URI.escape("http://www.kaltura.org/kalorg/kaltura-api-clients-generators/trunk/sources/csharp/KalturaClientTester/DemoVideo.flv", Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")))
     
     assert_not_nil created_entry3.id
-    assert_equal created_entry3.status, Kaltura::KalturaEntryStatus::IMPORT
+    assert_equal created_entry3.status, KalturaApi::KalturaEntryStatus::IMPORT
     assert_nil @client.media_service.delete(created_entry3.id)
   end
   
   # this test creates an entry and ranks it  
   should "set the rank attributes" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -112,9 +112,9 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test creates an entry and updates the thumbnail of it using a image url  
   should "update the thumbnail from url" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -134,7 +134,7 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test tries to create a media entry with invalid token.
   should "not create a media entry for a invalid token" do
        
-    assert_raise Kaltura::KalturaAPIError do
+    assert_raise KalturaApi::KalturaAPIError do
       @created_entry = @client.media_service.get("invalid entry id")
     end  
   end 
@@ -152,7 +152,7 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test starts multirequest couple of times  
   should "not raise any errors for double start multi request" do
     
-    assert_nothing_raised Kaltura::KalturaAPIError do
+    assert_nothing_raised KalturaApi::KalturaAPIError do
         @client.start_multirequest
         @client.start_multirequest
     end
@@ -161,18 +161,18 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test calls do_multirequest without stating it. 
   should "get an empty array for the multirequest when it calls without starting it" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test3"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
     
     ceated_media_entry = @client.media_service.add_from_uploaded_file(media_entry, video_token)
     
-    media_entry_filter = Kaltura::KalturaMediaEntryFilter.new
+    media_entry_filter = KalturaApi::KalturaMediaEntryFilter.new
     media_entry_filter.name_multi_like_or = "kaltura_test3"
-    filter_pager = Kaltura::KalturaFilterPager.new
+    filter_pager = KalturaApi::KalturaFilterPager.new
     @client.media_service.list(media_entry_filter, filter_pager)
     
     retVal = @client.do_multirequest
@@ -185,9 +185,9 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test uses multi request to retrieve the media entry list and create a new entry.  
   should "get the media list and create a media entry" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test3"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -196,15 +196,15 @@ class MediaServiceTest < Test::Unit::TestCase
     
     @client.media_service.add_from_uploaded_file(media_entry, video_token)
     
-    media_entry_filter = Kaltura::KalturaMediaEntryFilter.new
+    media_entry_filter = KalturaApi::KalturaMediaEntryFilter.new
     media_entry_filter.name_multi_like_or = "kaltura_test3"
-    filter_pager = Kaltura::KalturaFilterPager.new
+    filter_pager = KalturaApi::KalturaFilterPager.new
     @client.media_service.list(media_entry_filter, filter_pager)
     
     retVal = @client.do_multirequest
     
-    assert_instance_of Kaltura::KalturaMediaEntry, retVal[0]
-    assert_instance_of Kaltura::KalturaMediaListResponse, retVal[1]    
+    assert_instance_of KalturaApi::KalturaMediaEntry, retVal[0]
+    assert_instance_of KalturaApi::KalturaMediaListResponse, retVal[1]    
     assert_not_nil retVal[0].id
     assert_not_nil retVal[1].total_count
     assert_nil @client.media_service.delete(retVal[0].id)  
@@ -213,32 +213,32 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test retrieves error objects when a action in a multi request fails.  
   should "return error objects for failed actions" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry = KalturaApi::KalturaMediaEntry.new
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     
     @client.start_multirequest
     
     @client.media_service.get("invalid entry id")
     
-    media_entry_filter = Kaltura::KalturaMediaEntryFilter.new
-    filter_pager = Kaltura::KalturaFilterPager.new
+    media_entry_filter = KalturaApi::KalturaMediaEntryFilter.new
+    filter_pager = KalturaApi::KalturaFilterPager.new
     @client.media_service.list(media_entry_filter, filter_pager)
     
     retVal = @client.do_multirequest
         
-    assert_instance_of Kaltura::KalturaAPIError, retVal[0]
-    assert_instance_of Kaltura::KalturaMediaListResponse, retVal[1]
+    assert_instance_of KalturaApi::KalturaAPIError, retVal[0]
+    assert_instance_of KalturaApi::KalturaMediaListResponse, retVal[1]
     assert_not_nil retVal[1].total_count
   end
   
   # this test uses utf8 content in the media entry meta data.
   should "support UTF content in entry metadata" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "שלום"
     media_entry.description = @description
     
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -256,10 +256,10 @@ class MediaServiceTest < Test::Unit::TestCase
   # this test resets content in the media entry meta data.
   should "support setting nil for content in entry metadata" do
     
-    media_entry = Kaltura::KalturaMediaEntry.new
+    media_entry = KalturaApi::KalturaMediaEntry.new
     media_entry.name = "kaltura_test1"
     media_entry.description = "kaltura_test1 description"
-    media_entry.media_type = Kaltura::KalturaMediaType::VIDEO
+    media_entry.media_type = KalturaApi::KalturaMediaType::VIDEO
     video_file = File.open("test/media/test.wmv")
     
     video_token = @client.media_service.upload(video_file)
@@ -273,7 +273,7 @@ class MediaServiceTest < Test::Unit::TestCase
     assert_equal media_entry.description, "kaltura_test1 description"
     
     # update the desc with value
-    media_entry = Kaltura::KalturaBaseEntry.new
+    media_entry = KalturaApi::KalturaBaseEntry.new
     media_entry.name = "kaltura_test1 updated"
     media_entry.description = nil
     media_entry_updated = @client.base_entry_service.update(created_entry.id, media_entry)

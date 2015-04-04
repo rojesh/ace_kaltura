@@ -27,7 +27,7 @@
 # ===================================================================================================
 require 'kaltura_client.rb'
 
-module Kaltura
+module KalturaApi
 
 
 	# Allows user to 'like' or 'unlike' and entry

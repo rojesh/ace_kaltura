@@ -28,7 +28,7 @@
 require 'kaltura_client.rb'
 require File.dirname(__FILE__) + '/kaltura_cue_point_client_plugin.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaAdCuePointOrderBy
 		CREATED_AT_ASC = "+createdAt"

@@ -27,7 +27,7 @@
 # ===================================================================================================
 require 'kaltura_client.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaDropFolderContentFileHandlerMatchPolicy
 		ADD_AS_NEW = 1

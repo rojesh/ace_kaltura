@@ -27,7 +27,7 @@
 # ===================================================================================================
 require 'kaltura_client.rb'
 
-module Kaltura
+module KalturaApi
 
 	class KalturaVelocixProvisionJobData < KalturaProvisionJobData
 		attr_accessor :provisioning_params

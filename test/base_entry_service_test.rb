@@ -32,8 +32,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
   # this test uploads a file to kaltura and creates an entry using the uploaded file.
   should "upload a file and create an entry" do
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::DOCUMENT
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::DOCUMENT
       base_entry.name = "kaltura_test"
       pdf_file = File.open("test/media/test.pdf")
       
@@ -47,8 +47,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
   # this test uploads a file to kaltura and creates an entry using the uploaded file.   
    should "upload a file and create an entry" do
        
-       base_entry = Kaltura::KalturaBaseEntry.new
-       base_entry.type = Kaltura::KalturaEntryType::AUTOMATIC
+       base_entry = KalturaApi::KalturaBaseEntry.new
+       base_entry.type = KalturaApi::KalturaEntryType::AUTOMATIC
        base_entry.name = "kaltura_test"
        swf_file = File.open("test/media/test.swf")
        
@@ -68,7 +68,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
         XML
         created_entry = @client.parse_to_objects(response_body)
         
-        assert_instance_of Kaltura::KalturaBaseEntry, created_entry
+        assert_instance_of KalturaApi::KalturaBaseEntry, created_entry
         assert_not_nil created_entry.id
      end
     
@@ -76,16 +76,16 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     should "get the base entry list" do
       
       # cleaning up the list
-      base_entry_filter = Kaltura::KalturaBaseEntryFilter.new
+      base_entry_filter = KalturaApi::KalturaBaseEntryFilter.new
       base_entry_filter.name_multi_like_or = "kaltura_test"
-      filter_pager = Kaltura::KalturaFilterPager.new
+      filter_pager = KalturaApi::KalturaFilterPager.new
       base_entry_list = @client.base_entry_service.list(base_entry_filter, filter_pager)
       base_entry_list.objects.each do |obj|
         @client.base_entry_service.delete(obj.id) rescue nil
       end  if base_entry_list.objects
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::AUTOMATIC
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::AUTOMATIC
       base_entry.name = "kaltura_test"
       swf_file = File.open("test/media/test.swf")
       
@@ -94,9 +94,9 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       
       assert_not_nil created_entry.id
       
-      base_entry_filter = Kaltura::KalturaBaseEntryFilter.new
+      base_entry_filter = KalturaApi::KalturaBaseEntryFilter.new
       base_entry_filter.name_multi_like_or = "kaltura_test"
-      filter_pager = Kaltura::KalturaFilterPager.new
+      filter_pager = KalturaApi::KalturaFilterPager.new
       base_entry_list = @client.base_entry_service.list(base_entry_filter, filter_pager)
       
       assert_equal base_entry_list.total_count, 1
@@ -111,8 +111,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test creates an entry and retrieves it back using the id.
     should "get the base entry" do
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::DOCUMENT
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::DOCUMENT
       base_entry.name = "kaltura_test"
       swf_file = File.open("test/media/test.pdf")
       
@@ -124,7 +124,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       base_entry = @client.base_entry_service.get(created_entry.id)
       
       assert_not_nil base_entry
-      assert_instance_of Kaltura::KalturaDocumentEntry, base_entry
+      assert_instance_of KalturaApi::KalturaDocumentEntry, base_entry
       assert_equal base_entry.id, created_entry.id
       assert_nil @client.base_entry_service.delete(base_entry.id)
     end
@@ -132,8 +132,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test creates couple of entries and retrieves them back using the ids
     should "get the base entries using the ids" do
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::DOCUMENT
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::DOCUMENT
       base_entry.name = "kaltura_test"
       swf_file = File.open("test/media/test.pdf")
       
@@ -142,8 +142,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       
       assert_not_nil created_entry1.id
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::AUTOMATIC
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::AUTOMATIC
       base_entry.name = "kaltura_test"
       swf_file = File.open("test/media/test.swf")
       
@@ -164,7 +164,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test tries toretrieve an entry with invalid id.
     should "throw an error for invalid base entry id" do
       
-      assert_raise Kaltura::KalturaAPIError do
+      assert_raise KalturaApi::KalturaAPIError do
         @client.base_entry_service.get("invalid_base_entry_id")
       end
       
@@ -173,8 +173,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test creates an entry and updates the metadata of it.
     should "update the base entry metadata" do
       
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::AUTOMATIC
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::AUTOMATIC
       base_entry.name = "kaltura test"
       swf_file = File.open("test/media/test.swf")
       
@@ -183,13 +183,13 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       
       assert_not_nil created_entry.id
       
-      base_entry = Kaltura::KalturaBaseEntry.new
+      base_entry = KalturaApi::KalturaBaseEntry.new
       base_entry.name = "kaltura test updated"
       base_entry.description = "kaltura test description"
       base_entry_updated = @client.base_entry_service.update(created_entry.id, base_entry)
       
       assert_not_nil base_entry_updated
-      assert_instance_of Kaltura::KalturaBaseEntry, base_entry_updated
+      assert_instance_of KalturaApi::KalturaBaseEntry, base_entry_updated
       assert_equal base_entry_updated.name, "kaltura test updated"
       assert_equal base_entry_updated.description, "kaltura test description"
       
@@ -199,8 +199,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test creates an entry and updates it's thumbnail.
     should "upload a thumbnail for the base entry " do
     
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::DOCUMENT
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::DOCUMENT
       base_entry.name = "kaltura_test"
       pdf_file = File.open("test/media/test.pdf")
       
@@ -221,8 +221,8 @@ class BaseEntryServiceTest < Test::Unit::TestCase
     # this test creates an entry and set it's moderation flags.
     should "set the moderation flags" do
     
-      base_entry = Kaltura::KalturaBaseEntry.new
-      base_entry.type = Kaltura::KalturaEntryType::DOCUMENT
+      base_entry = KalturaApi::KalturaBaseEntry.new
+      base_entry.type = KalturaApi::KalturaEntryType::DOCUMENT
       base_entry.name = "kaltura_test"
       pdf_file = File.open("test/media/test.pdf")
       
@@ -237,16 +237,16 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       assert_equal moderation_flag_list.total_count, 0
 
       # add a new flag for moderate
-      flag = Kaltura::KalturaModerationFlag.new
+      flag = KalturaApi::KalturaModerationFlag.new
       flag.flagged_entry_id = created_entry.id
-      flag.flag_type = Kaltura::KalturaModerationFlagType::SEXUAL_CONTENT
+      flag.flag_type = KalturaApi::KalturaModerationFlagType::SEXUAL_CONTENT
       flag = @client.base_entry_service.flag(flag)
       
       # list the flags, should be 1
       moderation_flag_list = @client.base_entry_service.list_flags(created_entry.id)
       
       assert_equal moderation_flag_list.total_count, 1
-      assert_equal moderation_flag_list.objects[0].status, Kaltura::KalturaModerationFlagStatus::PENDING
+      assert_equal moderation_flag_list.objects[0].status, KalturaApi::KalturaModerationFlagStatus::PENDING
       
       # approve the flags
       @client.base_entry_service.approve(created_entry.id)
@@ -259,7 +259,7 @@ class BaseEntryServiceTest < Test::Unit::TestCase
       # get the entry and check the moderation status
       created_entry = @client.base_entry_service.get(created_entry.id)
       
-      assert_equal created_entry.moderation_status, Kaltura::KalturaEntryModerationStatus::APPROVED
+      assert_equal created_entry.moderation_status, KalturaApi::KalturaEntryModerationStatus::APPROVED
       
       assert_nil @client.base_entry_service.delete(created_entry.id)
     end

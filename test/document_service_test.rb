@@ -32,8 +32,8 @@ class DocumentServiceTest < Test::Unit::TestCase
     # this test tries to access the depricated document service and retrieves the list of documents.
     should "get the document list" do
   
-    document_entry_filter = Kaltura::KalturaDocumentEntryFilter.new
-    filter_pager = Kaltura::KalturaFilterPager.new      
+    document_entry_filter = KalturaApi::KalturaDocumentEntryFilter.new
+    filter_pager = KalturaApi::KalturaFilterPager.new      
     
     document_list = @client.document_service.list(document_entry_filter, filter_pager) 
     assert_not_nil document_list.total_count   
